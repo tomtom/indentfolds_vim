@@ -1,0 +1,115 @@
+*indentfolds.txt*   Indentation-level based folds with a twist
+                    Author: Tom Link, micathom at gmail com
+
+When I write a longer text, I tend to use a top-down approach. I begin 
+writing down the headings. I then outline each section. Next, I write 
+down keywords for each paragraph etc. At each step, I increase the 
+indentation level (multiples of 'shiftwidth', see also 'fold-indent').
+
+This plugin help maintaining an overview of the document by setting a 
+paragraph's 'foldlevel' based on its indentation level -- see 
+|:Indentfolds|. Other than vim's own 'fold-indent' method, any 
+indentation level can be assigned as the top fold level. E.g. text with 
+a prefix of 16 whitespace characters can be defined as level 1, 8 and 24 
+whitespace characters would then be at level 2 etc.
+
+This plugin also provides a helper-command to comment out or delete all 
+lines at higher fold levels -- see |:IndentfoldsComment|.
+
+Users can also use key maps (default: <tab>, <s-tab>) to cycle between 
+indentation levels.
+
+
+-----------------------------------------------------------------------
+Install~
+
+In order to install the vba, open the vba file in VIM and type: >
+
+    :so %
+
+See :help vimball for details.
+
+Also available via git: http://github.com/tomtom/indentfolds_vim/
+
+
+========================================================================
+Contents~
+
+        :Indentfolds .................... |:Indentfolds|
+        :IndentfoldsComment ............. |:IndentfoldsComment|
+        g:indentfolds#cycleplus_map ..... |g:indentfolds#cycleplus_map|
+        g:indentfolds#cycleminus_map .... |g:indentfolds#cycleminus_map|
+        g:indentfolds#foldlevel ......... |g:indentfolds#foldlevel|
+        g:indentfolds#comment_command ... |g:indentfolds#comment_command|
+        indentfolds#Fold ................ |indentfolds#Fold()|
+        indentfolds#Comment ............. |indentfolds#Comment()|
+        indentfolds#Expr ................ |indentfolds#Expr()|
+        indentfolds#Cycle ............... |indentfolds#Cycle()|
+
+
+========================================================================
+plugin/indentfolds.vim~
+
+                                                    *:Indentfolds*
+Indentfolds LEVEL [FOLDLEVEL]
+    See |indentfolds#Fold()| for help on LEVEL.
+
+                                                    *:IndentfoldsComment*
+IndentfoldsComment [LEVEL=2]
+    Comment out all lines with fold level LEVEL or greater.
+    Requires |g:indentfolds#comment_command| to be set.
+
+
+========================================================================
+autoload/indentfolds.vim~
+
+                                                    *g:indentfolds#cycleplus_map*
+g:indentfolds#cycleplus_map    (default: '<tab>')
+    Use this map for cycling through indentation levels (up).
+
+                                                    *g:indentfolds#cycleminus_map*
+g:indentfolds#cycleminus_map   (default: '<s-tab>')
+    Use this map for cycling through indentation levels (down).
+
+                                                    *g:indentfolds#foldlevel*
+g:indentfolds#foldlevel        (default: 2)
+    If >= 0, |indentfolds#Fold()| sets 'foldlevel' to this value.
+
+                                                    *g:indentfolds#comment_command*
+g:indentfolds#comment_command  (default: ...)
+    An ex-command to evaluate on a range of lines in order to comment 
+    that lines out.
+    
+    If the tcomment plugin is installed, this defaults to:
+      TComment!
+    Otherwise, commenting is disabled.
+    
+    You can set this variable to "delete" to delete lines instead of 
+    commenting them out.
+
+                                                    *indentfolds#Fold()*
+indentfolds#Fold(LEVELS, foldlevel=g:indentfolds#foldlevel)
+    Set the indentation levels (see also |fold-indent|) that should be 
+    considered a top level fold. The fold level is the smallest difference 
+    between the current line's indentation level and the levels set with 
+    this function.
+    
+    The LEVELS argument can have the following forms:
+      LEVEL     ... Indentation LEVEL is fold level 1
+      LOW-HIGH  ... Indentation levels from LOW to HIGH are fold level 1
+      L1,L2,... ... Indentation levels L1, L2 etc. are fold level 1
+
+                                                    *indentfolds#Comment()*
+indentfolds#Comment(...)
+    Comment out lines whose fold level is greater or equal the LEVEL 
+    argument.
+
+                                                    *indentfolds#Expr()*
+indentfolds#Expr(lnum)
+
+                                                    *indentfolds#Cycle()*
+indentfolds#Cycle(delta)
+
+
+
+vim:tw=78:fo=tcq2:isk=!-~,^*,^|,^":ts=8:ft=help:norl:
