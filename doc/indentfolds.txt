@@ -2,7 +2,7 @@
                     Author: Tom Link, micathom at gmail com
 
 When I write a longer text, I tend to use a top-down approach. I begin 
-writing down the headings. I then outline each section. Next, I write 
+with writing down the headings. I then outline each section. Next, I write 
 down keywords for each paragraph etc. At each step, I increase the 
 indentation level (multiples of 'shiftwidth', see also 'fold-indent').
 
@@ -11,12 +11,13 @@ paragraph's 'foldlevel' based on its indentation level -- see
 |:Indentfolds|. Other than vim's own 'fold-indent' method, any 
 indentation level can be assigned as the top fold level. E.g. text with 
 a prefix of 16 whitespace characters can be defined as level 1, 8 and 24 
-whitespace characters would then be at level 2 etc.
+whitespace characters would then be at level 2 etc. By setting foldlevel=1, 
+only text at that indentation level is displayed.
 
 This plugin also provides a helper-command to comment out or delete all 
 lines at higher fold levels -- see |:IndentfoldsComment|.
 
-Users can also use key maps (default: <tab>, <s-tab>) to cycle between 
+Users can also use key maps (default: <tab>, <s-tab>) to cycle through 
 indentation levels.
 
 
