@@ -51,11 +51,12 @@ Contents~
 plugin/indentfolds.vim~
 
                                                     *:Indentfolds*
-Indentfolds LEVEL [FOLDLEVEL]
+:Indentfolds LEVEL [FOLDLEVEL=g:indentfolds#foldlevel]
     See |indentfolds#Fold()| for help on LEVEL.
+    FOLDLEVEL defaults to |g:indentfolds#foldlevel|.
 
                                                     *:IndentfoldsComment*
-IndentfoldsComment [LEVEL=2]
+:IndentfoldsComment [LEVEL=2]
     Comment out all lines with fold level LEVEL or greater.
     Requires |g:indentfolds#comment_command| to be set.
 
@@ -65,11 +66,13 @@ autoload/indentfolds.vim~
 
                                                     *g:indentfolds#cycleplus_map*
 g:indentfolds#cycleplus_map    (default: '<tab>')
-    Use this map for cycling through indentation levels (up).
+    Use this map for cycling through indentation levels (focus lower 
+    section levels).
 
                                                     *g:indentfolds#cycleminus_map*
 g:indentfolds#cycleminus_map   (default: '<s-tab>')
-    Use this map for cycling through indentation levels (down).
+    Use this map for cycling through indentation levels (focus higher 
+    section levels).
 
                                                     *g:indentfolds#foldlevel*
 g:indentfolds#foldlevel        (default: 2)
@@ -100,7 +103,7 @@ indentfolds#Fold(LEVELS, foldlevel=g:indentfolds#foldlevel)
       L1,L2,... ... Indentation levels L1, L2 etc. are fold level 1
 
                                                     *indentfolds#Comment()*
-indentfolds#Comment(...)
+indentfolds#Comment(LEVEL)
     Comment out lines whose fold level is greater or equal the LEVEL 
     argument.
 

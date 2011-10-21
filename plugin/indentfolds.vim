@@ -4,7 +4,7 @@
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2011-10-21.
 " @Last Change: 2011-10-21.
-" @Revision:    10
+" @Revision:    12
 " GetLatestVimScripts: 3780 0 :AutoInstall: indentfolds.vim
 " Folds specific indentation levels
 
@@ -17,12 +17,13 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
-" :display: Indentfolds LEVEL [FOLDLEVEL]
+" :display: :Indentfolds LEVEL [FOLDLEVEL=g:indentfolds#foldlevel]
 " See |indentfolds#Fold()| for help on LEVEL.
+" FOLDLEVEL defaults to |g:indentfolds#foldlevel|.
 command! -nargs=1 Indentfolds call indentfolds#Fold(<f-args>)
 
 
-" :display: IndentfoldsComment [LEVEL=2]
+" :display: :IndentfoldsComment [LEVEL=2]
 " Comment out all lines with fold level LEVEL or greater.
 " Requires |g:indentfolds#comment_command| to be set.
 command! -nargs=? IndentfoldsComment call indentfolds#Comment(<f-args>)

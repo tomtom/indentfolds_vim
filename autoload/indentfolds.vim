@@ -3,16 +3,18 @@
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2011-10-21.
 " @Last Change: 2011-10-21.
-" @Revision:    86
+" @Revision:    91
 
 
 if !exists('g:indentfolds#cycleplus_map')
-    " Use this map for cycling through indentation levels (up).
+    " Use this map for cycling through indentation levels (focus lower 
+    " section levels).
     let g:indentfolds#cycleplus_map = '<tab>'   "{{{2
 endif
 
 if !exists('g:indentfolds#cycleminus_map')
-    " Use this map for cycling through indentation levels (down).
+    " Use this map for cycling through indentation levels (focus higher 
+    " section levels).
     let g:indentfolds#cycleminus_map = '<s-tab>'   "{{{2
 endif
 
@@ -77,6 +79,7 @@ endf
 
 " Comment out lines whose fold level is greater or equal the LEVEL 
 " argument.
+" :display: indentfolds#Comment(LEVEL)
 function! indentfolds#Comment(...) "{{{3
     if empty(g:indentfolds#comment_command)
         throw 'IndentFolds: Commenting not supported! Please see :help g:indentfolds#comment_command'
