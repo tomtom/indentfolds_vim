@@ -4,8 +4,8 @@
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2011-10-21.
 " @Last Change: 2011-10-21.
-" @Revision:    9
-" GetLatestVimScripts: 0 0 :AutoInstall: indentfolds.vim
+" @Revision:    10
+" GetLatestVimScripts: 3780 0 :AutoInstall: indentfolds.vim
 " Folds specific indentation levels
 
 if &cp || exists("loaded_indentfolds")
