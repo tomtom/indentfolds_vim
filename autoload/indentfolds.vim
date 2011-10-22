@@ -2,8 +2,8 @@
 " @Author:      Tom Link (mailto:micathom AT gmail com?subject=[vim])
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2011-10-21.
-" @Last Change: 2011-10-21.
-" @Revision:    91
+" @Last Change: 2011-10-22.
+" @Revision:    95
 
 
 if !exists('g:indentfolds#cycleplus_map')
@@ -94,7 +94,7 @@ function! indentfolds#Comment(...) "{{{3
                         let lbeg = lnum
                     endif
                 elseif lbeg > 0
-                    let lend = lnum - 1
+                    let lend = prevnonblank(lnum - 1)
                     " echom "DBG" lbeg .",". lend . g:indentfolds#comment_command
                     silent exec lbeg .",". lend . g:indentfolds#comment_command
                     let lbeg = 0
@@ -112,7 +112,12 @@ endf
 
 
 function! indentfolds#Expr(lnum) "{{{3
-    let indent = indent(a:lnum)
+    let prev = prevnonblank(a:lnum)
+    let next = nextnonblank(a:lnum)
+    let indent = indent(prev)
+    if prev != next
+        let indent = min([indent, indent(next)])
+    endif
     let level = indent / &shiftwidth
     if index(s:levels, level) != -1
         return 1
