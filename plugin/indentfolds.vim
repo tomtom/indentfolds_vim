@@ -3,8 +3,8 @@
 " @GIT:         http://github.com/tomtom/
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2011-10-21.
-" @Last Change: 2011-10-21.
-" @Revision:    12
+" @Last Change: 2011-10-22.
+" @Revision:    13
 " GetLatestVimScripts: 3780 0 :AutoInstall: indentfolds.vim
 " Folds specific indentation levels
 
@@ -20,7 +20,7 @@ set cpo&vim
 " :display: :Indentfolds LEVEL [FOLDLEVEL=g:indentfolds#foldlevel]
 " See |indentfolds#Fold()| for help on LEVEL.
 " FOLDLEVEL defaults to |g:indentfolds#foldlevel|.
-command! -nargs=1 Indentfolds call indentfolds#Fold(<f-args>)
+command! -nargs=+ Indentfolds call indentfolds#Fold(<f-args>)
 
 
 " :display: :IndentfoldsComment [LEVEL=2]

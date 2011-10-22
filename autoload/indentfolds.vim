@@ -60,7 +60,7 @@ function! indentfolds#Fold(...) "{{{3
     elseif a:0 > 0 && a:1 =~ '^\d\+-\d\+$'
         let s:levels = call('range', split(a:0, '-'))
     else
-        throw "IndentFolds: Argument format (one of): Level L1-L2 L1,L2"
+        throw "IndentFolds: Invalid argument format (must be one of: Level L1-L2 L1,L2): ". string(a:000)
     endif
     setlocal foldmethod=expr
     setlocal foldexpr=indentfolds#Expr(v:lnum)
