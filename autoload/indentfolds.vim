@@ -3,7 +3,7 @@
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2011-10-21.
 " @Last Change: 2011-10-22.
-" @Revision:    95
+" @Revision:    126
 
 
 if !exists('g:indentfolds#cycleplus_map')
@@ -51,22 +51,47 @@ let s:levels = [0]
 " this function.
 "
 " The LEVELS argument can have the following forms:
+"
 "   LEVEL     ... Indentation LEVEL is fold level 1
 "   LOW-HIGH  ... Indentation levels from LOW to HIGH are fold level 1
 "   L1,L2,... ... Indentation levels L1, L2 etc. are fold level 1
+"
+" The LEVELS argument can have a "+" or "-" prefix. In such case, the 
+" listed levels are added or removed from the list of top indentation 
+" levels.
 function! indentfolds#Fold(...) "{{{3
-    if a:0 > 0 && a:1 =~ '^\d\+\(,\d\+\)*$'
-        let s:levels = split(a:0, ',')
-    elseif a:0 > 0 && a:1 =~ '^\d\+-\d\+$'
-        let s:levels = call('range', split(a:0, '-'))
+    let levels = a:0 >= 1 ? a:1 : ''
+    if levels =~ '^[+-]'
+        let meth = levels[0:0]
+        let levels = strpart(levels, 1)
+    else
+        let meth = ''
+    endif
+    " TLogVAR levels, meth
+    if levels =~ '^\d\+\(,\d\+\)*$'
+        let llevels = split(levels, ',')
+    elseif levels =~ '^\d\+-\d\+$'
+        let llevels = call('range', split(levels, '-'))
     else
         throw "IndentFolds: Invalid argument format (must be one of: Level L1-L2 L1,L2): ". string(a:000)
     endif
+    " TLogVAR llevels
+    if meth == "+"
+        let s:levels += llevels
+    elseif meth == "-"
+        let s:levels = filter(s:levels, 'index(llevels, v:val) == -1')
+    else
+        let s:levels = llevels
+    endif
+    if empty(s:levels)
+        throw "IndentFolds: List of indentation levels must not be empty"
+    endif
+    echom "IndentFolds: Indentation levels =" join(s:levels, ', ')
     setlocal foldmethod=expr
     setlocal foldexpr=indentfolds#Expr(v:lnum)
-    let foldlevel = a:0 >= 2 ? a:2 : g:indentfolds#foldlevel
-    if foldlevel > 0 && &l:foldlevel != foldlevel
-        let &l:foldlevel = foldlevel
+    let foldlevel = a:0 >= 2 ? a:2 : min([&l:foldlevel, g:indentfolds#foldlevel])
+    if foldlevel > 0
+        call s:SetFoldLevel(foldlevel)
     endif
     if !empty('g:indentfolds#cycleplus_map')
         exec 'noremap <buffer>' g:indentfolds#cycleplus_map ':call indentfolds#Cycle(1)<cr>'
@@ -131,10 +156,12 @@ endf
 function! indentfolds#Cycle(delta) "{{{3
     let s:levels = map(s:levels, 'v:val + a:delta')
     echom "IndentFolds: Set top indentation levels to:" join(s:levels, ', ')
+    call s:SetFoldLevel(&l:foldlevel)
+endf
+
+
+function! s:SetFoldLevel(foldlevel) "{{{3
     norm! zx
-    if g:indentfolds#foldlevel > 0
-        let &l:foldlevel = g:indentfolds#foldlevel
-        norm! zv
-    endif
+    let &l:foldlevel = a:foldlevel
 endf
 

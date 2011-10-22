@@ -99,9 +99,14 @@ indentfolds#Fold(LEVELS, foldlevel=g:indentfolds#foldlevel)
     this function.
     
     The LEVELS argument can have the following forms:
+    
       LEVEL     ... Indentation LEVEL is fold level 1
       LOW-HIGH  ... Indentation levels from LOW to HIGH are fold level 1
       L1,L2,... ... Indentation levels L1, L2 etc. are fold level 1
+    
+    The LEVELS argument can have a "+" or "-" prefix. In such case, the 
+    listed levels are added or removed from the list of top indentation 
+    levels.
 
                                                     *indentfolds#Comment()*
 indentfolds#Comment(LEVEL)
