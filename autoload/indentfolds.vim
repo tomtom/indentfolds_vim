@@ -2,8 +2,8 @@
 " @Author:      Tom Link (mailto:micathom AT gmail com?subject=[vim])
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2011-10-21.
-" @Last Change: 2011-10-22.
-" @Revision:    126
+" @Last Change: 2011-10-23.
+" @Revision:    135
 
 
 if !exists('g:indentfolds#cycleplus_map')
@@ -19,7 +19,10 @@ if !exists('g:indentfolds#cycleminus_map')
 endif
 
 if !exists('g:indentfolds#foldlevel')
-    " If >= 0, |indentfolds#Fold()| sets 'foldlevel' to this value.
+    " If its value is greater or equal zero and if its value is smaller 
+    " that 'foldlevel', |indentfolds#Fold()| sets 'foldlevel' to this 
+    " value. I.e. |indentfolds#Fold()| will never increase the value of 
+    " 'foldlevel'.
     let g:indentfolds#foldlevel = 2   "{{{2
 endif
 

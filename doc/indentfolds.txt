@@ -41,6 +41,7 @@ Contents~
         g:indentfolds#cycleplus_map ..... |g:indentfolds#cycleplus_map|
         g:indentfolds#cycleminus_map .... |g:indentfolds#cycleminus_map|
         g:indentfolds#foldlevel ......... |g:indentfolds#foldlevel|
+        g:indentfolds#foldview .......... |g:indentfolds#foldview|
         g:indentfolds#comment_command ... |g:indentfolds#comment_command|
         indentfolds#Fold ................ |indentfolds#Fold()|
         indentfolds#Comment ............. |indentfolds#Comment()|
@@ -77,7 +78,15 @@ g:indentfolds#cycleminus_map   (default: '<s-tab>')
 
                                                     *g:indentfolds#foldlevel*
 g:indentfolds#foldlevel        (default: 2)
-    If >= 0, |indentfolds#Fold()| sets 'foldlevel' to this value.
+    If its value is greater or equal zero and if its value is smaller 
+    that 'foldlevel', |indentfolds#Fold()| sets 'foldlevel' to this 
+    value. I.e. |indentfolds#Fold()| will never increase the value of 
+    'foldlevel'.
+
+                                                    *g:indentfolds#foldview*
+g:indentfolds#foldview         (default: 'norm! zv')
+    An ex-command that ill be executed after (re-)setting the fold 
+    level.
 
                                                     *g:indentfolds#comment_command*
 g:indentfolds#comment_command  (default: ...)
