@@ -23,6 +23,12 @@ if !exists('g:indentfolds#foldlevel')
     let g:indentfolds#foldlevel = 2   "{{{2
 endif
 
+if !exists('g:indentfolds#foldview')
+    " An ex-command that ill be executed after (re-)setting the fold 
+    " level.
+    let g:indentfolds#foldview = 'norm! zv'   "{{{2
+endif
+
 if !exists('g:indentfolds#comment_command')
     " An ex-command to evaluate on a range of lines in order to comment 
     " that lines out.
@@ -163,5 +169,6 @@ endf
 function! s:SetFoldLevel(foldlevel) "{{{3
     norm! zx
     let &l:foldlevel = a:foldlevel
+    exec 'sandbox' g:indentfolds#foldview
 endf
 
